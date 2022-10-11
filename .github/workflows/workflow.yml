@@ -1,6 +1,7 @@
 # The GitHub Actions docs (https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#on)
 # describe other options for 'on', 'pull_request' is a good default.
 on: [pull_request]
+
 jobs:
   infracost:
     runs-on: ubuntu-latest
@@ -9,7 +10,7 @@ jobs:
       AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}       
       AWS_SESSION_TOKEN:  ${{ secrets.AWS_SESSION_TOKEN }} 
-      
+
     name: Run Infracost
     steps:
       - name: Check out repository
@@ -25,6 +26,7 @@ jobs:
       - name: Terraform init
         run: terraform init
         working-directory: ${{ env.working-directory }}
+
 
       - name: Terraform plan
         run: terraform plan -out tfplan.binary
