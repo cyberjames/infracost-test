@@ -40,9 +40,11 @@ jobs:
         uses: infracost/actions/setup@v1
         with:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
-          
-      - name: Generate Infracost JSON
-        run: infracost breakdown --path plan.json --format json --out-file /tmp/infracost.json
+
+      - name: Set AUD Currency and Generate Infracost JSON
+        run: |
+          infracost configure set currency AUD
+          infracost breakdown --path plan.json --format json --out-file /tmp/infracost.json
         working-directory: ${{ env.working-directory }}
         
       - name: Post Infracost comment
