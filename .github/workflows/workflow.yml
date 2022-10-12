@@ -44,7 +44,7 @@ jobs:
       - name: Set AUD Currency and Generate Infracost JSON
         run: |
           infracost configure set currency AUD
-          infracost breakdown --path plan.json --format json --out-file /tmp/infracost.json
+          infracost breakdown --path plan.json --project-name terraform-code-standards/infracost --format json --out-file /tmp/infracost.json
         working-directory: ${{ env.working-directory }}
         
       - name: Post Infracost comment
