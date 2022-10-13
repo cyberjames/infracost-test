@@ -1,4 +1,4 @@
-name: Terraform Project
+name: Infracost
 on: [pull_request]
 
 jobs:

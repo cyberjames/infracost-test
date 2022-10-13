@@ -9,62 +9,68 @@
 <br><br>
 
 ## Introduction
-<hr>
-Infracost aims to show the cloud cost estimation with breakdowns to understand the costs before launching or making changes to the Infrastructure as Code (Terraform at the moment) configuration either in the terminal or pull requests from VCS.<br>
+Infracost is an open source (has SaaS product) aims to show the cloud cost estimate with breakdowns and diffs to understand the costs before launching or making changes to the Infrastructure as Code configuration either in the terminal or pull requests from the VCS provider.
 
-Behind the Scene of Infracost
-<screenshot here>
+Terraform is the only supported IaC tool at the moment of this writing while the rest of the tools are still part of their product roadmap.
+
+
+
 
 <br><br>
 ## Objectives
-<hr>
-These are the top 3 purpose of using Infracost tool.
+These are the top goals of using Infracost.
 
-* Cost visibility and awareness.
+* Cost visibility and awareness before resources are launched.
 * Aligned budgets and costs.
-* Consultants: cost-benefit analysis.
+* Provides cost-benefit analysis for the Consultants to their customers.
 
 <br>
 <br>
 
 ## Implementation
-<hr>
 
 <br>
 
 ### Step 1: Installing Infracost
 
-| **Platform**         | Commands                                                                                                                                                                                                                                                                                                       |   |   |   |
-|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|---|---|
-| macOS (Brew)         | `brew install infracost`                                                                                                                                                                                                                                                                                       |   |   |   |
-| macOS/Linux (Manual) | `curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh \| sh`                                                                                                                                                                                                             |   |   |   |
-| Docker               | `docker pull infracost/infracost:ci-latest` <br><br> `docker run --rm \` <br> `-e INFRACOST_API_KEY=<api-key-here> \` <br> `-v $PWD/:/path/to/tf/code/ infracost/infracost:ci-latest breakdown --path /path/to/tf/code/` |   |   |   |
-| Windows (Chocolatey) | `choco install infracost`                                                                                                                                                                                                                                                                                      |   |   |   |
-| Windows (Manual)     | Download and unzip the latest release at https://github.com/infracost/infracost/releases/latest/download/infracost-windows-amd64.zip.                                                                                                                                                                          |   |   |   |
-
-
-
+| **Platform**         | Commands                                                                                                                                                                                                                                        |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| macOS (Brew)         | ```brew install infracost```                                                                                                                                                                                                               |
+| macOS/Linux (Manual) | ```curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh \| sh```                                                                                                                                     |
+| Docker               | ```docker pull infracost/infracost:ci-latest  docker run --rm \ -e INFRACOST_API_KEY=see_following_step_on_how_to_get_this \ -v $PWD/:/path/to/terraform/code/ infracost/infracost:ci-latest breakdown --path /path/to/terraform/code/ ``` |
+| Windows (Chocolatey) | ```choco install infracost ```                                                                                                                                                                                                             |
+| Windows (Manual)     | Download and unzip the latest release at https://github.com/infracost/infracost/releases/latest/download/infracost-windows-amd64.zip.                                                                                                           |
 
 
 <br><br>
-### Step 2: Getting API Key
+### Step 2: Register for Infracost API Key
 
-* Registration is free to get the Infracost API key. To do that, issue the command below and it will navigate you to the registration page.
+Registration is **free** for getting the Infracost API key. To do that, issue the command below and it will navigate you to the registration page.
 
-    ```bash
-    infracost auth login
-    ```
-* Retrieve the API key with the command below.
-    ```bash
-    infracost configure get api_key
-    ```
+```bash
+infracost auth login
+```
 
+Retrieve the Infracost API key with the command below.
+
+```bash
+infracost configure get api_key
+```
+
+Set the Infracost API key to your local computer.
+
+```xml
+infracost configure set api_key <your-infracost-api-key-here>
+```
 
 <br><br>
 ### Step 3: Running Infracost CLI
 <br>
 
-<details><summary>➡️ Showing an estimated cost <u>breakdown</u>.</summary>
+These are the basic commands of the Infracost CLI.
+
+
+<details><summary>➡️ Click here to show an estimated cost <u>breakdown</u>.</summary>
 <p>
 
 The example below will be showing a breakdown of the cost for all the resources in the Terraform code.
@@ -76,13 +82,15 @@ infracost breakdown --path .
 ```
 
 Example output:
-<p align="center"><img align="center" src="images/infracost-cli1.png"></p>
+
+![Infracost CLI Output](images/infracost-cli1.png)
+
 
 </p>
 </details>
 
 <br>
-<details><summary>➡️ Showing an estimated cost <u>diff</u>erence.</summary>
+<details><summary>➡️ Click here to show an estimated cost <u>diff</u>erence.</summary>
 <p>
 
 The example below will be showing an estimated cost difference of before and after making changes on the resources in the Terraform code.
@@ -99,7 +107,8 @@ The example below will be showing an estimated cost difference of before and aft
     ```
 
 Example output:
-<p align="center"><img align="center" src="images/infracost-cli2.png"></p>
+
+![Infracost CLI Output](images/infracost-cli2.png)
 
 </p>
 </details>
@@ -107,109 +116,138 @@ Example output:
 
 
 <br><br>
-### Step 4: Automate Cloud Cost - CI/CD Integrations
+### Step 4: Automate Cloud Cost with CI/CD Integrations
 
 
 <br><br>
 #### Using GitHub Action
 
+Please refer to the [Infracost GitHub Actions](https://github.com/infracost/actions) guide for more details.
 
 
-<br><br>
-#### Using GitLab CI
+* [Create a Github repository secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) with the following details.
+  * Name   = `INFRACOST_API_KEY`
+  * Secret = `<Your Infracost API key>`
 
-<br><br>
-### Step 4: Command Line Basic Commands
-
-
+  ![Github Secrets](images/github.secrets.png)
 
 
+* Create a file `.github/workflows/infracost.yml` with the contents below.
+  ```yaml
+  name: Infracost
+  on: [pull_request]
 
- 
-## 3-Steps to Use INFRACOST in CI/CD Pipeline
-* The example below is when you're using GitHub Action.
-* For using other VCS provider, please refer to https://www.infracost.io/docs/integrations/.
+  jobs:
+    terraform-project:
+      name: Terraform project
+      runs-on: ubuntu-latest
+      permissions:
+        contents: read
+        pull-requests: write
 
-### Step 1: Add to `~/.github/workflows/infracost.yml`
-```yaml
-on: [pull_request]
+      env:
+        # The location of the Terraform code
+        TF_ROOT: ./
 
-jobs:
-  infracost:
-    runs-on: ubuntu-latest
-    env:
-      working-directory: "./" # Update this!
-      INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
-      AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_SESSION_TOKEN:  ${{ secrets.AWS_SESSION_TOKEN }}
+      steps:
+        - name: Setup Infracost
+          uses: infracost/actions/setup@v2
+          with:
+            api-key: ${{ secrets.INFRACOST_API_KEY }}
 
-    name: Run Infracost
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-        
-      - name: Install terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_wrapper: false  # This is recommended so the `terraform show` command outputs valid JSON
+        # Checkout the base branch of the pull request (e.g. main/master).
+        - name: Checkout base branch
+          uses: actions/checkout@v3
+          with:
+            ref: '${{ github.event.pull_request.base.ref }}'
 
-      - name: Terraform init
-        run: terraform init
-        working-directory: ${{ env.working-directory }}
+        # Generate Infracost JSON file as the baseline.
+        - name: Generate Infracost cost estimate baseline
+          run: |
+            infracost breakdown --path=${TF_ROOT} \
+                                --format=json \
+                                --out-file=/tmp/infracost-base.json
 
+        # Checkout the current PR branch so we can create a diff.
+        - name: Checkout PR branch
+          uses: actions/checkout@v3
 
-      - name: Terraform plan
-        run: terraform plan -out tfplan.binary
-        working-directory: ${{ env.working-directory }}
+        # Generate an Infracost diff and save it to a JSON file.
+        - name: Generate Infracost diff
+          run: |
+            infracost diff --path=${TF_ROOT} \
+                            --format=json \
+                            --compare-to=/tmp/infracost-base.json \
+                            --out-file=/tmp/infracost.json
 
-      - name: Terraform show
-        run: terraform show -json tfplan.binary > plan.json
-        working-directory: ${{ env.working-directory }}
+        # Posts a comment to the PR using the 'update' behavior.
+        # See https://www.infracost.io/docs/features/cli_commands/#comment-on-pull-requests for other options.
+        - name: Post Infracost comment
+          run: |
+              infracost comment github --path=/tmp/infracost.json \
+                                      --repo=$GITHUB_REPOSITORY \
+                                      --github-token=${{github.token}} \
+                                      --pull-request=${{github.event.pull_request.number}} \
+                                      --behavior=update
 
-      - name: Setup Infracost
-        uses: infracost/actions/setup@v1
-        with:
-          api-key: ${{ secrets.INFRACOST_API_KEY }}
+  ```
+* Now, try to create a pull request to your Github repository and the Actions will automatically running. Below is an example of how it looks like.
 
-      - name: Set AUD Currency and Generate Infracost JSON
-        run: |
-          infracost configure set currency AUD
-          infracost breakdown --path plan.json --project-name terraform-code-standards/infracost --format json --out-file /tmp/infracost.json
-        working-directory: ${{ env.working-directory }}
-        
-      - name: Post Infracost comment
-        uses: infracost/actions/comment@v1
-        with:
-          path: /tmp/infracost.json
-          # Choose the commenting behavior, 'update' is a good default:
-          behavior: update # Create a single comment and update it. The "quietest" option.                 
-          # behavior: delete-and-new # Delete previous comments and create a new one.
-          # behavior: hide-and-new # Minimize previous comments and create a new one.
-          # behavior: new # Create a new cost estimate comment on every push.
-```
+  ![Github Comment](images/github.comment.png)
 
-### Step 2
+  <br>
+  Here is another example combination with Terraform Core workflow.
 
-### Step 3
+  ```yml
+  name: terraform-infracost
+  on: [pull_request]
 
+  jobs:
+    infracost:
+      runs-on: ubuntu-latest
+      env:
+        working-directory: ./
+        AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
+        AWS_SESSION_TOKEN:  ${{ secrets.AWS_SESSION_TOKEN }}
 
+      name: Run Infracost
+      steps:
+        - name: Check out repository
+          uses: actions/checkout@v2
+          
+        - name: Install terraform
+          uses: hashicorp/setup-terraform@v1
+          with:
+            terraform_wrapper: false # This is recommended so the `terraform show` command outputs valid JSON
 
+        - name: Terraform init
+          run: terraform init
+          working-directory: ${{ env.working-directory }}
 
+        - name: Terraform plan
+          run: terraform plan -out tfplan.binary
+          working-directory: ${{ env.working-directory }}
 
+        - name: Terraform show
+          run: terraform show -json tfplan.binary > plan.json
+          working-directory: ${{ env.working-directory }}
 
-## 3-Steps to Use INFRACOST in Command Line (CLI)
+        - name: Setup Infracost
+          uses: infracost/actions/setup@v1
+          with:
+            api-key: ${{ secrets.INFRACOST_API_KEY }}
 
-### Step 1 - Install Infracost & API Key
-
-**1.1 Install Infracost**
-
-Please refer to https://www.infracost.io/docs/#1-install-infracost.
-
-**1.2 Get free API Key**
-
-Please refer to https://www.infracost.io/docs/#2-get-api-key
-
-### Step 2
-
-### Step 3
+        - name: Set AUD Currency and Generate Infracost JSON
+          run: |
+            infracost configure set currency AUD
+            infracost breakdown --path plan.json --format json --out-file /tmp/infracost.json
+          working-directory: ${{ env.working-directory }}
+          
+        - name: Post Infracost comment
+          uses: infracost/actions/comment@v1
+          with:
+            path: /tmp/infracost.json
+            # Choose the commenting behavior, 'update' is a good default:
+            behavior: update # Create a single comment and update it. The "quietest" 
+  ```
