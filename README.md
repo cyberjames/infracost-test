@@ -3,17 +3,18 @@
 - [Introduction](#introduction)
 - [Objectives](#objectives)
 - [Implementation](#implementation)
-    - [Step 1- Installing Infracost](#step-1-installing-infracost)
+    - [Step 1 - Installing Infracost](#step-1-installing-infracost)
+    - [Step 2 - Register for Infracost API Key](#step-2-register-for-infracost-api-key)
+    - [Step 3 - Running Infracost CLI](#step-3-running-infracost-cli)
+    - [Step 4 - CI/CD Integrations](#step-4-cicd-integrations)
 
 
 <br><br>
 
 ## Introduction
-Infracost is an open source (has SaaS product) aims to show the cloud cost estimate with breakdowns and diffs to understand the costs before launching or making changes to the Infrastructure as Code configuration either in the terminal or pull requests from the VCS provider.
+Infracost is an open source software (and has SaaS offerings) aims to show the cloud cost estimate with breakdowns and diffs to understand the costs before launching or making changes to the Infrastructure as Code configuration either in the terminal or pull requests from the VCS provider.
 
 Terraform is the only supported IaC tool at the moment of this writing while the rest of the tools are still part of their product roadmap.
-
-
 
 
 <br><br>
@@ -22,7 +23,7 @@ These are the top goals of using Infracost.
 
 * Cost visibility and awareness before resources are launched.
 * Aligned budgets and costs.
-* Provides cost-benefit analysis for the Consultants to their customers.
+* For the Consultants, it provides cost-benefit analysis to their customers.
 
 <br>
 <br>
@@ -45,19 +46,19 @@ These are the top goals of using Infracost.
 <br><br>
 ### Step 2: Register for Infracost API Key
 
-Registration is **free** for getting the Infracost API key. To do that, issue the command below and it will navigate you to the registration page.
+Registration is **free** for getting the Infracost API key. To do that, issue the command below and it will navigate you to the infracost website registration page.
 
 ```bash
 infracost auth login
 ```
 
-Retrieve the Infracost API key with the command below.
+Retrieve your Infracost API key with the command below.
 
 ```bash
 infracost configure get api_key
 ```
 
-Set the Infracost API key to your local computer.
+Set your retrieved Infracost API key to your local computer.
 
 ```xml
 infracost configure set api_key <your-infracost-api-key-here>
@@ -67,13 +68,14 @@ infracost configure set api_key <your-infracost-api-key-here>
 ### Step 3: Running Infracost CLI
 <br>
 
-These are the basic commands of the Infracost CLI.
+The following are examples of the basic commands for the Infracost CLI.<br>
 
+<br>
 
-<details><summary>➡️ Click here to show an estimated cost <u>breakdown</u>.</summary>
-<p>
+#### ➡️ Showing an estimated cost <u>breakdown</u>
 
-The example below will be showing a breakdown of the cost for all the resources in the Terraform code.
+<br>
+The example below will show an estimated cost breakdown for all the resources in the Terraform code.
 
 ```bash
 cd /path/to/terraform-code-project
@@ -86,48 +88,48 @@ Example output:
 ![Infracost CLI Output](images/infracost-cli1.png)
 
 
-</p>
-</details>
+<br><br>
+
+#### ➡️ Showing an estimated cost <u>diff</u>erence
 
 <br>
-<details><summary>➡️ Click here to show an estimated cost <u>diff</u>erence.</summary>
-<p>
-
-The example below will be showing an estimated cost difference of before and after making changes on the resources in the Terraform code.
+The example below will show an estimated cost difference of before and after making changes to the resources (aws instance type) in the Terraform code.
 
 * Generate a JSON file as the baseline.
     ```bash
     cd /path/to/terraform-code-project
-    infracost breakdown --path . --format json --out-file before.json
+
+    infracost breakdown --path . --format json --out-file infracost-base.json
     ```
-* Try to change any resources in Terraform code like AWS instance type.
-* Generate a diff by comparing the latest code change with the previous one.
+* Try to change any resources in the Terraform code like AWS instance type.
+* Generate a differences by comparing the latest code change from the previous one.
     ```bash
-    infracost diff --path . --compare-to before.json
+    infracost diff --path . --compare-to infracost-base.json
     ```
 
 Example output:
 
 ![Infracost CLI Output](images/infracost-cli2.png)
 
-</p>
-</details>
-
-
 
 <br><br>
-### Step 4: Automate Cloud Cost with CI/CD Integrations
+### Step 4: CI/CD Integrations
+Infracost can be integrated to multiple CI/CD platforms. This tool is recommended to add in every pull requests.
+<br><br>The example below is for GitHub Actions. The other platforms (like GitLab, Jenkins, etc) guide can be found in [here](https://www.infracost.io/docs/integrations/cicd/).
 
+<br>
 
-<br><br>
-#### Using GitHub Action
+#### ➡️ Using GitHub Actions
+<br>
 
-Please refer to the [Infracost GitHub Actions](https://github.com/infracost/actions) guide for more details.
-
+Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions) guide to explore other options and details.
+<br>
 
 * [Create a Github repository secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) with the following details.
   * Name   = `INFRACOST_API_KEY`
-  * Secret = `<Your Infracost API key>`
+  * Secret = `<Your Infracost API key>` 
+  
+  <br>
 
   ![Github Secrets](images/github.secrets.png)
 
@@ -191,12 +193,16 @@ Please refer to the [Infracost GitHub Actions](https://github.com/infracost/acti
                                       --behavior=update
 
   ```
-* Now, try to create a pull request to your Github repository and the Actions will automatically running. Below is an example of how it looks like.
+* Now, you can try to create a pull request to your GitHub repository and the workflow will be running automatically. 
+  <br>A comment will be posted to the PR comment thread displaying an estimated cost outcome.
+  <br><br>Below is an example of the Infracost output.
 
   ![Github Comment](images/github.comment.png)
 
   <br>
-  Here is another example combination with Terraform Core workflow.
+  <details><summary>
+   ➡️ Click here for another example combination of the core Terraform workflow.
+  </summary>
 
   ```yml
   name: terraform-infracost
@@ -250,4 +256,19 @@ Please refer to the [Infracost GitHub Actions](https://github.com/infracost/acti
             path: /tmp/infracost.json
             # Choose the commenting behavior, 'update' is a good default:
             behavior: update # Create a single comment and update it. The "quietest" 
+  ```
+  </summary>
+
+<br><br>
+
+## Other Useful Information and Commands
+
+* The Infracost monthly pricing is automatically detected in the Terraform code based on the defined region (i.e. AWS Sydney region).
+
+* The default currency is USD. You can change the format using the [Infracost CLI and environment variables](https://www.infracost.io/docs/features/environment_variables/#infracost_currency).
+  ```bash
+  infracost configure set currency AUD
+  ```
+  ```bash
+  export INFRACOST_CURRENCY=AUD
   ```
