@@ -1,0 +1,58 @@
+name: Generate terraform docs
+
+on: [pull_request]
+
+jobs:
+  infracost:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: "./" # Update this!
+      INFRACOST_API_KEY:  ${{ secrets.INFRACOST_API_KEY }}
+      AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
+      AWS_SESSION_TOKEN:  ${{ secrets.AWS_SESSION_TOKEN }}
+
+    name: Run Infracost
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        
+      - name: Install terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false # This is recommended so the `terraform show` command outputs valid JSON
+
+      # IMPORTANT: add any required steps here to set up cloud credentials so Terraform can run
+
+      - name: Terraform init
+        run: terraform init
+        working-directory: ${{ env.working-directory }}
+
+      - name: Terraform plan
+        run: terraform plan -out tfplan.binary
+        working-directory: ${{ env.working-directory }}
+
+      - name: Terraform show
+        run: terraform show -json tfplan.binary > plan.json
+        working-directory: ${{ env.working-directory }}
+
+      - name: Setup Infracost
+        uses: infracost/actions/setup@v1
+        with:
+          api-key: ${{ secrets.INFRACOST_API_KEY }}
+
+      - name: Set AUD Currency and Generate Infracost JSON
+        run: |
+          infracost configure set currency AUD
+          infracost breakdown --path plan.json --project-name terraform-code-standards/infracost --format json --out-file /tmp/infracost.json
+        working-directory: ${{ env.working-directory }}
+        
+      - name: Post Infracost comment
+        uses: infracost/actions/comment@v1
+        with:
+          path: /tmp/infracost.json
+          # Choose the commenting behavior, 'update' is a good default:
+          behavior: update # Create a single comment and update it. The "quietest" option.                 
+          # behavior: delete-and-new # Delete previous comments and create a new one.
+          # behavior: hide-and-new # Minimize previous comments and create a new one.
+          # behavior: new # Create a new cost estimate comment on every push.
