@@ -6,7 +6,7 @@
     - [Step 1 - Installing Infracost](#step-1-installing-infracost)
     - [Step 2 - Register for Infracost API Key](#step-2-register-for-infracost-api-key)
     - [Step 3 - Running Infracost CLI](#step-3-running-infracost-cli)
-    - [Step 4 - CI/CD Integrations](#step-4-cicd-integrations)
+- [CI/CD Integrations](#cicd-integrations)
 
 
 <br><br>
@@ -93,7 +93,7 @@ Example output:
 #### ➡️ Showing an estimated cost <u>diff</u>erence
 
 <br>
-The example below will show an estimated cost difference of before and after making changes to the resources (aws instance type) in the Terraform code.
+The example below will show an estimated cost difference of before and after making changes to the resources (i.e. AWS instance type) in the Terraform code.
 
 * Generate a JSON file as the baseline.
     ```bash
@@ -113,7 +113,7 @@ Example output:
 
 
 <br><br>
-### Step 4: CI/CD Integrations
+## CI/CD Integrations
 Infracost can be integrated to multiple CI/CD platforms. This tool is recommended to add in every pull requests.
 <br><br>The example below is for GitHub Actions. The other platforms (like GitLab, Jenkins, etc) guide can be found in [here](https://www.infracost.io/docs/integrations/cicd/).
 
@@ -191,7 +191,6 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
                                       --github-token=${{github.token}} \
                                       --pull-request=${{github.event.pull_request.number}} \
                                       --behavior=update
-
   ```
 * Now, you can try to create a pull request to your GitHub repository and the workflow will be running automatically. 
   <br>A comment will be posted to the PR comment thread displaying an estimated cost outcome.
