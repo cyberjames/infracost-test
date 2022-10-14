@@ -12,12 +12,11 @@
 <br><br>
 
 ## Introduction
-[Infracost](https://www.infracost.io) is an open source software (and has SaaS offerings) aims to show the cloud cost estimate with breakdowns and diffs to understand the costs before launching or making changes to the Infrastructure as Code configuration either in the terminal or pull requests from the VCS provider.
+[Infracost](https://www.infracost.io) is an open source (and has SaaS offerings) aims to show the cloud cost estimate with breakdowns and diffs to understand the costs before launching or making changes to the Infrastructure as Code configuration either in the terminal or pull requests from the VCS provider.
 
-Terraform is the only supported IaC tool at the moment of this writing while the rest of the tools are still part of their product roadmap.
+Terraform is the only supported IaC tool at the moment of this writing while the rest of the tools are still part of their [roadmap](https://github.com/infracost/infracost/projects/2) feature.
 
-
-<br><br>
+<br>
 ## Objectives
 These are the top goals of using Infracost.
 
@@ -30,7 +29,6 @@ These are the top goals of using Infracost.
 
 ## Implementation
 
-<br>
 
 ### Step 1: Installing Infracost
 
@@ -43,10 +41,9 @@ These are the top goals of using Infracost.
 | Windows (Manual)     | Download and unzip the latest release at https://github.com/infracost/infracost/releases/latest/download/infracost-windows-amd64.zip.                                                                                                           |
 
 
-<br><br>
+<br>
 ### Step 2: Register for Infracost API Key
-
-Registration is **free** for getting the Infracost API key. To do that, issue the command below and it will navigate you to the infracost website registration page.
+Registration is <u>free</u> for getting an Infracost API key. To do that, issue the command below and it will navigate you to the infracost website registration page.
 
 ```bash
 infracost auth login
@@ -64,10 +61,9 @@ Set your retrieved Infracost API key to your local computer.
 infracost configure set api_key <your-infracost-api-key-here>
 ```
 
-<br><br>
-### Step 3: Running Infracost CLI
 <br>
 
+### Step 3: Running Infracost CLI
 The following are examples of the basic commands for the Infracost CLI.<br>
 
 <br>
@@ -88,11 +84,10 @@ Example output:
 ![Infracost CLI Output](images/infracost-cli1.png)
 
 
-<br><br>
+<br>
 
 #### ➡️ Showing an estimated cost <u>diff</u>erence
 
-<br>
 The example below will show an estimated cost difference of before and after making changes to the resources (i.e. AWS instance type) in the Terraform code.
 
 * Generate a JSON file as the baseline.
@@ -117,7 +112,6 @@ Example output:
 Infracost can be integrated to multiple CI/CD platforms. This tool is recommended to add in every pull requests.
 <br><br>The example below is for GitHub Actions. The other platforms (like GitLab, Jenkins, etc) guide can be found in [here](https://www.infracost.io/docs/integrations/cicd/).
 
-<br>
 
 #### ➡️ Using GitHub Actions
 <br>
