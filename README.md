@@ -12,7 +12,7 @@
 <br><br>
 
 ## Introduction
-Infracost is an open source software (and has SaaS offerings) aims to show the cloud cost estimate with breakdowns and diffs to understand the costs before launching or making changes to the Infrastructure as Code configuration either in the terminal or pull requests from the VCS provider.
+[Infracost](https://www.infracost.io) is an open source software (and has SaaS offerings) aims to show the cloud cost estimate with breakdowns and diffs to understand the costs before launching or making changes to the Infrastructure as Code configuration either in the terminal or pull requests from the VCS provider.
 
 Terraform is the only supported IaC tool at the moment of this writing while the rest of the tools are still part of their product roadmap.
 
