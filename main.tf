@@ -11,7 +11,7 @@ module "vpc" {
 
 module "ec2_instance" {
   source            = "./modules/ec2"
-  instance_type     = "t2.xlarge"
+  instance_type     = "t2.micro"
   subnet_id         = module.vpc.subnet_ids[0]
   ec2_instance_name = "terraform-standards-ec2"
   tags              = var.tags
