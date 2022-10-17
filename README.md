@@ -1,4 +1,4 @@
-# Infracost
+# Infracost Community
 
 - [Introduction](#introduction)
 - [Objectives](#objectives)
@@ -12,19 +12,20 @@
 <br><br>
 
 ## Introduction
-[Infracost](https://www.infracost.io) is an open source (and has SaaS offerings) aims to show the cloud cost estimate with breakdowns and diffs to understand the costs before launching or making changes to the Infrastructure as Code configuration either in the terminal or pull requests from the VCS provider.
+[Infracost](https://www.infracost.io) Community is an open source (and has SaaS offerings) aims to show the cloud cost estimate with breakdowns and diffs to understand the costs before launching or making changes to the Infrastructure as Code configuration either in the terminal or pull requests from the VCS provider.
 
 Terraform is the only supported IaC tool at the moment of this writing while the rest of the tools are still part of their [roadmap](https://github.com/infracost/infracost/projects/2) feature.
 
 <br>
 
 ## Objectives
-These are the top goals of using Infracost.
+The main outcomes when using Infracost are:
 
-* Cost visibility and awareness before resources are launched.
-* Aligned budgets and costs.
-* For the Consultants, it provides cost-benefit analysis to their customers.
+- Cost visibility and awareness with breakdowns and diffs before resources are launched.
 
+- Automated cloud costs with CI/CD integrations.
+
+But on top of the Community version, the Infracost Cloud adds more features (details are [here](https://www.infracost.io/pricing)).
 <br>
 <br>
 
@@ -268,3 +269,9 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
   ```bash
   export INFRACOST_CURRENCY=AUD
   ```
+
+<br>
+
+  ## Infracost Cloud
+  Infracost is offering a SaaS product called Inracost Cloud/Enterprise which hosted
+
