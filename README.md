@@ -44,7 +44,7 @@ But on top of the Community version, the Infracost Cloud adds more features (det
 | macOS/Linux (Manual) | ```curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh \| sh```                                                                                                                                     |
 | Docker               | ```docker pull infracost/infracost:ci-latest ; docker run --rm -e INFRACOST_API_KEY=<your-infracost-api-key-here> -v $PWD/:/path/to/terraform/code/ infracost/infracost:ci-latest breakdown --path /path/to/terraform/code/ ``` |
 | Windows (Chocolatey) | ```choco install infracost```                                                                                                                                                                                                             |
-| Windows (Manual)     | Download and unzip the latest release at this [link](https://github.com/infracost/infracost/releases/latest/download/infracost-windows-amd64.zip).                                                                                                           |
+| Windows (Manual)     | Download and unzip the latest release from this [link](https://github.com/infracost/infracost/releases/latest/download/infracost-windows-amd64.zip).                                                                                                           |
 
 
 <br>
