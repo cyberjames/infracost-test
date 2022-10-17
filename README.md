@@ -122,8 +122,11 @@ Infracost can be integrated to multiple CI/CD systems. This tool is recommended 
 
 
 #### ➡️ Using GitHub Actions
-<br>
 
+<details><summary>
+<i>Show the content in here</i>
+</summary>
+<br>
 Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions) guide to explore other options and details.
 <br>
 
@@ -199,11 +202,14 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
   <br><br>Below is an example of the Infracost output.
 
   ![Github Comment](images/github.comment.png)
+</details>
 
   <br>
-  <details><summary>
-   ➡️ Click here for another example combination of the core Terraform workflow.
-  </summary>
+
+  ➡️ Another example combination of the core Terraform workflow.
+<details><summary>
+<i>Show the content in here</i>
+</summary>
 
   ```yml
   name: terraform-infracost
@@ -261,7 +267,7 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
   </details>
   <br>
 
-    ➡️ Other use-cases: [Generating plan JSON files](https://www.infracost.io/docs/troubleshooting/#2-generating-plan-json-files).
+  ➡️ Other use-case: [Generating plan JSON files](https://www.infracost.io/docs/troubleshooting/#2-generating-plan-json-files).
 
 
 <br><br>
