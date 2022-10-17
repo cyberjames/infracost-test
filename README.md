@@ -96,21 +96,21 @@ Example output:
 
 The example below will show an estimated cost difference of before and after making changes to the resources (i.e. AWS instance type) in the Terraform code.
 
-* Generate a JSON file as the baseline.
+1. Generate a JSON file as the baseline.
     ```bash
     cd /path/to/terraform-code-project
 
-    infracost breakdown --path . --format json --out-file infracost-base.json
+    infracost breakdown --path . --format json --out-file before.json
     ```
-* Try to change any resources in the Terraform code like AWS instance type.
-* Generate a differences by comparing the latest code change from the previous one.
+2. Try to change any resources in the Terraform code like AWS instance type.
+3.  Generate a differences by comparing the latest code change from the previous one.
     ```bash
-    infracost diff --path . --compare-to infracost-base.json
+    infracost diff --path . --compare-to before.json
     ```
 
 Example output:
 
-![Infracost CLI Output](images/infracost-cli2.png)
+  ![Infracost CLI Output](images/infracost-cli2.png)
 
 
 <br>
