@@ -127,10 +127,11 @@ Infracost can be integrated to multiple CI/CD systems. This tool is recommended 
 <i>Show the content in here</i>
 </summary>
 <br>
+
 Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions) guide to explore other options and details.
 <br>
 
-* [Create a Github repository secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) with the following details.
+1. [Create a Github repository secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) with the following details.
   * Name   = `INFRACOST_API_KEY`
   * Secret = `<Your Infracost API key>` 
   
@@ -139,7 +140,7 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
   ![Github Secrets](images/github.secrets.png)
 
 
-* Create a file `.github/workflows/infracost.yml` with the contents below.
+2. Create a file `.github/workflows/infracost.yml` with the contents below.
   ```yaml
   name: Infracost
   on: [pull_request]
@@ -197,7 +198,7 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
                                       --pull-request=${{github.event.pull_request.number}} \
                                       --behavior=update
   ```
-* Now, you can try to create a pull request to your GitHub repository and the workflow will be running automatically. 
+3. Now, you can try to create a pull request to your GitHub repository and the workflow will be running automatically. 
   <br>A comment will be posted to the PR comment thread displaying an estimated cost outcome.
   <br><br>Below is an example of the Infracost output.
 
