@@ -17,6 +17,7 @@
 Terraform is the only supported IaC tool at the moment of this writing while the rest of the tools are still part of their [roadmap](https://github.com/infracost/infracost/projects/2) feature.
 
 <br>
+
 ## Objectives
 These are the top goals of using Infracost.
 
@@ -42,6 +43,7 @@ These are the top goals of using Infracost.
 
 
 <br>
+
 ### Step 2: Register for Infracost API Key
 Registration is <u>free</u> for getting an Infracost API key. To do that, issue the command below and it will navigate you to the infracost website registration page.
 
@@ -107,10 +109,10 @@ Example output:
 ![Infracost CLI Output](images/infracost-cli2.png)
 
 
-<br><br>
+<br>
 ## CI/CD Integrations
-Infracost can be integrated to multiple CI/CD platforms. This tool is recommended to add in every pull requests.
-<br><br>The example below is for GitHub Actions. The other platforms (like GitLab, Jenkins, etc) guide can be found in [here](https://www.infracost.io/docs/integrations/cicd/).
+Infracost can be integrated to multiple CI/CD systems. This tool is recommended to add in every pull requests.
+<br><br>The example guide below is for GitHub Actions. The other provider (like GitLab, Jenkins, etc) guide can be found in [here](https://www.infracost.io/docs/integrations/cicd/).
 
 
 #### ➡️ Using GitHub Actions
