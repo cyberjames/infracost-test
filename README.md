@@ -6,13 +6,14 @@
     - [Step 1 - Installing Infracost](#step-1-installing-infracost)
     - [Step 2 - Register for Infracost API Key](#step-2-register-for-infracost-api-key)
     - [Step 3 - Running Infracost CLI](#step-3-running-infracost-cli)
-- [CI/CD Integrations](#cicd-integrations)
+- [Integrations](#integrations)
+    - [CI/CD Integrations](#cicd-integrations)
 
 
 <br><br>
 
 ## Introduction
-The [Infracost](https://www.infracost.io) has two offering products - Community (an open source software) and Cloud (a SaaS product). 
+The [Infracost](https://www.infracost.io) offers two kinds of products - Community (an open source software) and Cloud (a SaaS product). 
 
 Both product aims to show the cloud cost estimate with breakdowns and diffs to understand the costs before launching or making changes to the Infrastructure as Code configuration either in the terminal or pull requests from the VCS provider.
 <br>
@@ -41,7 +42,7 @@ But on top of the Community version, the Infracost Cloud adds more features (det
 |----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | macOS (Brew)         | ```brew install infracost```                                                                                                                                                                                                               |
 | macOS/Linux (Manual) | ```curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh \| sh```                                                                                                                                     |
-| Docker               | ```docker pull infracost/infracost:ci-latest  docker run --rm \ -e INFRACOST_API_KEY=see_following_step_on_how_to_get_this \ -v $PWD/:/path/to/terraform/code/ infracost/infracost:ci-latest breakdown --path /path/to/terraform/code/ ``` |
+| Docker               | ```docker pull infracost/infracost:ci-latest` ; docker run --rm -e INFRACOST_API_KEY=<your-infracost-api-key-here> -v $PWD/:/path/to/terraform/code/ infracost/infracost:ci-latest breakdown --path /path/to/terraform/code/ ``` |
 | Windows (Chocolatey) | ```choco install infracost ```                                                                                                                                                                                                             |
 | Windows (Manual)     | Download and unzip the latest release at https://github.com/infracost/infracost/releases/latest/download/infracost-windows-amd64.zip.                                                                                                           |
 
@@ -115,7 +116,9 @@ Example output:
 
 <br>
 
-## CI/CD Integrations
+## Integrations
+
+### CI/CD Integrations
 Infracost can be integrated to multiple CI/CD systems. This tool is recommended to add in every pull requests.
 <br><br>The example guide below is for GitHub Actions. The other provider (like GitLab, Jenkins, etc) guide can be found in [here](https://www.infracost.io/docs/integrations/cicd/).
 
@@ -257,15 +260,19 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
             # Choose the commenting behavior, 'update' is a good default:
             behavior: update # Create a single comment and update it. The "quietest" 
   ```
-  </summary>
+  </details>
+  <br>
+
+    ➡️ Other use-cases: [Generating plan JSON files](https://www.infracost.io/docs/troubleshooting/#2-generating-plan-json-files).
+
 
 <br><br>
 
-## Other Useful Information and Commands
+## Other Useful Handy Information
 
-* The Infracost monthly pricing is automatically detected in the Terraform code based on the defined region (i.e. AWS Sydney region).
+- The Infracost monthly pricing is automatically detected in the Terraform code based on the defined region (i.e. AWS Sydney region).
 
-* The default currency is USD. You can change the format using the [Infracost CLI and environment variables](https://www.infracost.io/docs/features/environment_variables/#infracost_currency).
+- The default currency is USD. You can change the format using the [Infracost CLI and environment variables](https://www.infracost.io/docs/features/environment_variables/#infracost_currency).
   ```bash
   infracost configure set currency AUD
   ```
@@ -275,6 +282,7 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
 
 <br>
 
-  ## Infracost Cloud
-  Infracost is offering a SaaS product called Inracost Cloud/Enterprise which hosted
+## Infracost Cloud
+Infracost Cloud is a Software as a Service (SaaS) product that builds on top of Infracost open source. It provides few [features](https://www.infracost.io/pricing/) such as a dashboard as a central place that shows all cost estimation for the entire pull requests from the VCS provider to help guide the team.
 
+Please refer to this [link](https://www.infracost.io/docs/infracost_cloud/get_started/) to quickly get started with Infracost Cloud.
