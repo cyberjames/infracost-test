@@ -110,6 +110,7 @@ Example output:
 
 
 <br>
+
 ## CI/CD Integrations
 Infracost can be integrated to multiple CI/CD systems. This tool is recommended to add in every pull requests.
 <br><br>The example guide below is for GitHub Actions. The other provider (like GitLab, Jenkins, etc) guide can be found in [here](https://www.infracost.io/docs/integrations/cicd/).
