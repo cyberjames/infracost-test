@@ -132,8 +132,8 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
 <br>
 
 1. [Create a Github repository secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) with the following details.
-  * Name   = `INFRACOST_API_KEY`
-  * Secret = `<Your Infracost API key>` 
+    - Name   = `INFRACOST_API_KEY`
+    - Secret = `<Your Infracost API key>` 
   
   <br>
 
