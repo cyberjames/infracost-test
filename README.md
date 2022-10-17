@@ -268,7 +268,7 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
   </details>
   <br>
 
-  ➡️ Other use-case: [Generating plan JSON files](https://www.infracost.io/docs/troubleshooting/#2-generating-plan-json-files).
+  ➡️ Other use-case: [Generating plan JSON files](https://www.infracost.io/docs/troubleshooting/#2-generating-plan-json-files) with Terraform CLI, Terraform Cloud, Terragrunt and Bash Scripts.
 
 
 <br><br>
