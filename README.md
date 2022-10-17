@@ -6,9 +6,9 @@
     - [Step 1 - Installing Infracost](#step-1-installing-infracost)
     - [Step 2 - Register for Infracost API Key](#step-2-register-for-infracost-api-key)
     - [Step 3 - Running Infracost CLI](#step-3-running-infracost-cli)
-- [Integrations](#integrations)
-    - [CI/CD Integrations](#cicd-integrations)
-
+- [CI/CD Integrations](#cicd-integrations)
+- [Other Useful Handy Information](#other-useful-handy-information)
+- [Infracost Cloud](#infracost-cloud)
 
 <br><br>
 
@@ -116,9 +116,7 @@ Example output:
 
 <br>
 
-## Integrations
-
-### CI/CD Integrations
+## CI/CD Integrations
 Infracost can be integrated to multiple CI/CD systems. This tool is recommended to add in every pull requests.
 <br><br>The example guide below is for GitHub Actions. The other provider (like GitLab, Jenkins, etc) guide can be found in [here](https://www.infracost.io/docs/integrations/cicd/).
 
