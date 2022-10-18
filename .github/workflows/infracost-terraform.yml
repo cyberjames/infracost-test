@@ -1,7 +1,10 @@
 name: Generate terraform docs
 
-on: [pull_request]
-
+on:
+  pull_request:
+    branches:
+      - main
+      
 jobs:
   infracost:
     runs-on: ubuntu-latest

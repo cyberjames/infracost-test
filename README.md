@@ -243,7 +243,10 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
 
   ```yml
   name: Infracost
-  on: [pull_request]
+  on: 
+    pull_request:
+      branches:
+        - main
 
   jobs:
     infracost:
