@@ -84,5 +84,4 @@ jobs:
                                      --repo=$GITHUB_REPOSITORY \
                                      --github-token=${{github.token}} \
                                      --pull-request=${{github.event.pull_request.number}} \
-                                     --project-name contino/terraform-code-standards/infracost \
                                      --behavior=update
