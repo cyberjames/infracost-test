@@ -140,10 +140,18 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
   ![Github Secrets](images/github.secrets.png)
 
 
-2. Create a file `.github/workflows/infracost.yml` with the contents below.
+2. Create a file `.github/workflows/infracost.yml` with the content below.
   ```yaml
   name: Infracost
-  on: [pull_request]
+  on: 
+    pull_request:
+      branches:
+        - main
+
+  # env:
+  #   # If you use private modules you'll need this env variable to use
+  #   # the same ssh-agent socket value across all jobs & steps.
+  #   SSH_AUTH_SOCK: /tmp/ssh_agent.sock
 
   jobs:
     terraform-project:
@@ -154,19 +162,35 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
         pull-requests: write
 
       env:
-        # The location of the Terraform code
         TF_ROOT: ./
+        # If you're using Terraform Cloud/Enterprise and have variables or private modules stored
+        # on there, specify the following to automatically retrieve the variables:
+        #   INFRACOST_TERRAFORM_CLOUD_TOKEN: ${{ secrets.TFC_TOKEN }}
+        #   INFRACOST_TERRAFORM_CLOUD_HOST: app.terraform.io # Change this if you're using Terraform Enterprise
 
       steps:
+        # If you use private modules, add an environment variable or secret
+        # called GIT_SSH_KEY with your private key, so Infracost can access
+        # private repositories (similar to how Terraform/Terragrunt does).
+        # - name: add GIT_SSH_KEY
+        #   run: |
+        #     ssh-agent -a $SSH_AUTH_SOCK
+        #     mkdir -p ~/.ssh
+        #     echo "${{ secrets.GIT_SSH_KEY }}" | tr -d '\r' | ssh-add -
+        #     ssh-keyscan github.com >> ~/.ssh/known_hosts
+
         - name: Setup Infracost
           uses: infracost/actions/setup@v2
+          # See https://github.com/infracost/actions/tree/master/setup for other inputs
+          # If you can't use this action, see Docker images in https://infracost.io/cicd
           with:
             api-key: ${{ secrets.INFRACOST_API_KEY }}
 
-        # Checkout the base branch of the pull request (e.g. main/master).
-        - name: Checkout base branch
+        # Checkout the "main" branch of the pull request.
+        - name: Checkout main branch
           uses: actions/checkout@v3
           with:
+            # Referencing to the "main" branch
             ref: '${{ github.event.pull_request.base.ref }}'
 
         # Generate Infracost JSON file as the baseline.
@@ -189,6 +213,11 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
                             --out-file=/tmp/infracost.json
 
         # Posts a comment to the PR using the 'update' behavior.
+        # This creates a single comment and updates it. The "quietest" option.
+        # The other valid behaviors are:
+        #   delete-and-new - Delete previous comments and create a new one.
+        #   hide-and-new - Minimize previous comments and create a new one.
+        #   new - Create a new cost estimate comment on every push.
         # See https://www.infracost.io/docs/features/cli_commands/#comment-on-pull-requests for other options.
         - name: Post Infracost comment
           run: |
@@ -207,13 +236,13 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
 
   <br>
 
-  ➡️ Another example combination of the core Terraform workflow.
+  ➡️ Using GitHub Actions with Terraform OSS.
 <details><summary>
 <i>Show the content in here</i>
 </summary>
 
   ```yml
-  name: terraform-infracost
+  name: Infracost
   on: [pull_request]
 
   jobs:
@@ -233,7 +262,8 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
         - name: Install terraform
           uses: hashicorp/setup-terraform@v1
           with:
-            terraform_wrapper: false # This is recommended so the `terraform show` command outputs valid JSON
+            # This is recommended so the `terraform show` command outputs the valid JSON.
+            terraform_wrapper: false
 
         - name: Terraform init
           run: terraform init
@@ -275,9 +305,7 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
 
 ## Other Useful Handy Information
 
-- The Infracost monthly pricing is automatically detected in the Terraform code based on the defined region (i.e. AWS Sydney region).
-
-- The default currency is USD. You can change the format using the [Infracost CLI and environment variables](https://www.infracost.io/docs/features/environment_variables/#infracost_currency).
+- The Infracost default currency is USD. You can change the format using the [Infracost CLI or by using environment variables](https://www.infracost.io/docs/features/environment_variables/#infracost_currency).
   ```bash
   infracost configure set currency AUD
   ```
@@ -290,4 +318,4 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
 ## Infracost Cloud
 Infracost Cloud is a Software as a Service (SaaS) product that builds on top of Infracost open source. It provides few [features](https://www.infracost.io/pricing/) such as a dashboard as a central place that shows all cost estimation for the entire pull requests from the VCS provider to help guide the team.
 
-Please refer to this [link](https://www.infracost.io/docs/infracost_cloud/get_started/) to quickly get started with Infracost Cloud.
+If you're interested, please visit this [link](https://www.infracost.io/docs/infracost_cloud/get_started/) to get started quickly.
