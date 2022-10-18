@@ -228,7 +228,7 @@ Please visit the [Infracost GitHub Actions](https://github.com/infracost/actions
                                       --behavior=update
   ```
 3. Now, you can try to create a pull request to your GitHub repository and the workflow will be running automatically. 
-  <br>A comment will be posted to the PR comment thread displaying an estimated cost outcome.
+  <br><br>A comment will be posted to the PR comment thread displaying an estimated cost outcome.
   <br><br>Below is an example of the Infracost output.
 
   ![Github Comment](images/github.comment.png)
